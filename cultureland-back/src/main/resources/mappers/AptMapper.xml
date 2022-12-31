@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.culture.dao.AptDao">
+	<!-- 동코드를 이용해서 해당 동에서 있었던 아파트 거래내역을 조회, 그리고 평균값, 회수값을 계산하여 반환합니다. -->
+	<select id="selectByDongCode" parameterType="Long" resultType="AptInfo">
+		select hi.aptCode as aptCode, hi.apartmentName as aptName, hi.lat as lat, hi.lng as lng, hi.buildYear as buildYear, count(*) as dealCnt, round(avg(replace(hd.dealAmount, ",", ""))) as avgDealAmount
+		from houseinfo hi inner join housedeal hd on hi.aptCode=hd.aptCode
+		where hi.dongCode = #{dongCode}
+		group by hi.apartmentName;
+	</select>
+	
+	<!-- 아파트 코드 값을 이용해서  해당 아파트의 모든 거래내역을 반환합니다.-->
+	<select id="selectByAptCode" parameterType="Long" resultType="AptDeal">
+		SELECT no as dealNo, aptCode, dealAmount, dealYear, dealMonth, dealDay, area, floor
+		FROM culture_land.housedeal
+		where aptcode = #{aptCode};
+	</select>
+</mapper>
+

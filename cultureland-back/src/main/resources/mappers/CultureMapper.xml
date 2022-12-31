@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.culture.dao.CultureDao">
+	<!-- 문화공간 정보를 입력합니다. -->
+	<insert id="insertCulture" parameterType="java.util.Map">
+		insert into culture 
+		(c_category,content,address,lat,lng,tel,url,time,pay,holiday,img_url,etc,intro,free_yn,transport)
+		values
+			(
+			#{SUBJCODE}, 
+			#{FAC_NAME}, 
+			#{ADDR}, 
+			#{X_COORD}, 
+			#{Y_COORD}, 
+			#{PHNE}, 
+			#{HOMEPAGE}, 
+			#{OPENHOUR}, 
+			#{ENTR_FEE}, 
+			#{CLOSEDAY}, 
+			#{MAIN_IMG},
+			#{ETC_DESC}, 
+			#{FAC_DESC}, 
+			#{ENTRFREE}, 
+			#{SUBWAY})	
+	</insert>
+	
+	<!-- 모든 문화공간 정보를 가져옵니다. -->
+	<select id="selectAllCulture" resultType="Culture">
+		select *
+		from culture;
+	</select>
+</mapper>
+
